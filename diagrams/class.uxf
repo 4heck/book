@@ -1,0 +1,65 @@
+<diagram program="umletino" version="14.3.0"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>336</x><y>571</y><w>359</w><h>89</h></coordinates><panel_attributes>Config
+--
++ SECRET_KEY : String
++ SQLALCHEMY_DATABASE_URI : String
++ SQLALCHEMY_TRACK_MODIFICATIONS : Boolean
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>496</x><y>261</y><w>119</w><h>99</h></coordinates><panel_attributes>models
+--
++ Customer
++ Owner
++ Film
++ Deal
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>617</x><y>350</y><w>110</w><h>150</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;130;90;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>227</x><y>311</y><w>140</w><h>79</h></coordinates><panel_attributes>Owner
+--
++ id : Integer
++ name:String 
+
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>137</x><y>191</y><w>229</w><h>69</h></coordinates><panel_attributes>Customer
+--
++ id : Integer
++ name : String
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>616</x><y>500</y><w>120</w><h>60</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;19;100;40</additional_attributes></element><element><id>Relation</id><coordinates><x>507</x><y>511</y><w>80</w><h>80</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;60;60;10</additional_attributes></element><element><id>Relation</id><coordinates><x>357</x><y>230</y><w>160</w><h>80</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>140;60;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>357</x><y>301</y><w>160</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>140;20;60;10;10;50</additional_attributes></element><element><id>UMLClass</id><coordinates><x>717</x><y>520</y><w>99</w><h>40</h></coordinates><panel_attributes>main
+--
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>486</x><y>450</y><w>140</w><h>69</h></coordinates><panel_attributes>app
+--
++ app : Flask
++ db : SQLAlchemy
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>547</x><y>350</y><w>30</w><h>120</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;100;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>607</x><y>181</y><w>120</w><h>150</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;130;100;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>706</x><y>130</y><w>170</w><h>340</h></coordinates><panel_attributes>api
+--
+--
++ api_customer_get() : JSON
++ api_customer_get_id : JSON
++ api_customer_insert: JSON
++ api_customer_delete(id) : JSON
++ api_customer_update(id): JSON
++ api_owner_get() : JSON
++ api_owner_get_id(id): : JSON
++ api_owner_insert(): JSON
++ api_owner_delete(id): : JSON
++ api_owner_update(id): JSON
++ api_film_get() : JSON
++ api_film_get_id(id): JSON
++ api_film_insert() : JSON
++ api_film_delete(id) : JSON
++ api_film_update(id): JSON
++ api_deal_get() : JSON
++ api_deal_get_id(id): JSON
++ api_deal_insert() : JSON
++ api_deal_delete(id) : JSON
++ api_deal_update(id): JSON
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>477</x><y>160</y><w>40</w><h>120</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>20;100;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>376</x><y>70</y><w>160</w><h>99</h></coordinates><panel_attributes>Deal
+--
++ id : Integer
++ owner : Integer
++ customer : Integer
++ film : Integer
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>417</x><y>321</y><w>100</w><h>180</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>80;10;10;160</additional_attributes></element><element><id>UMLClass</id><coordinates><x>127</x><y>431</y><w>300</w><h>99</h></coordinates><panel_attributes>Film
+--
++ id : Integer
++ name: String 
++ duration: Integer 
++ year: Integer 
+--
+</panel_attributes><additional_attributes></additional_attributes></element></diagram>

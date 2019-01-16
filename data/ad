@@ -1,0 +1,10 @@
+CREATE TABLE public.ad (
+    id integer NOT NULL,
+    employee integer NOT NULL,
+    company integer NOT NULL,
+    salary integer NOT NULL,
+    locality integer NOT NULL
+);
+
+INSERT INTO public.ad(employee, company, salary, locality)
+	VALUES (random()*11086, random()*11413, 25000+random()*75000, random()*106908);
