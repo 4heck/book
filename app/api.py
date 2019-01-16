@@ -1,8 +1,8 @@
 from app import app
 from models import Ad
-from models import Employee
+from models import Customer
 from models import Town
-from models import Company
+from models import Book
 from flask import jsonify
 from flask import request
 from app import db
@@ -12,7 +12,7 @@ import json
 @app.route('/api/ad', methods=['GET'])
 def api_ad_get():
     ads = Ad.query.all()
-    ads_json = [{"id": ad.id, "employee": ad.employee, "company": ad.company, "salary": ad.salary, "locality": ad.locality}
+    ads_json = [{"id": ad.id, "customer": ad.customer, "book": ad.book, "price": ad.price, "locality": ad.locality}
                   for ad in ads]
     return jsonify(ads_json)
 
@@ -22,16 +22,16 @@ def api_ad_get_id(id):
     if not ads:
         abort(404)
     ad = ads[0]
-    ad_json = {"id": ad.id, "employee": ad.employee, "company": ad.company, "salary": ad.salary, "locality": ad.locality}
+    ad_json = {"id": ad.id, "customer": ad.customer, "book": ad.book, "price": ad.price, "locality": ad.locality}
     return jsonify(ad_json)
 
 @app.route('/api/ad', methods=['POST'])
 def api_ad_insert():
     new_ad = request.get_json()
-    ad = Ad(id=new_ad['id'], employee=new_ad['employee'], company=new_ad['company'], salary=new_ad['salary'], locality=new_ad['locality'])
+    ad = Ad(id=new_ad['id'], customer=new_ad['customer'], book=new_ad['book'], price=new_ad['price'], locality=new_ad['locality'])
     db.session.add(ad)
     db.session.commit()
-    ad_json = {"id": ad.id, "employee": ad.employee, "company": ad.company, "salary": ad.salary, "locality": ad.locality}
+    ad_json = {"id": ad.id, "customer": ad.customer, "book": ad.book, "price": ad.price, "locality": ad.locality}
     return jsonify(ad_json)
 
 @app.route('/api/ad/<id>', methods=['DELETE'])
@@ -51,106 +51,106 @@ def api_ad_update(id):
     data = json.loads(request.get_data())
     ad_to_update = ads_to_update[0]
     ad_to_update = db.session.query(Ad).filter_by(id = id).first()
-    ad_to_update.employee = data['employee']
-    ad_to_update.company = data['company']
-    ad_to_update.salary = data['salary']
+    ad_to_update.customer = data['customer']
+    ad_to_update.book = data['book']
+    ad_to_update.price = data['price']
     ad_to_update.locality = data['locality']
     db.session.commit()
     return jsonify(ad_to_update.to_dict())
 
-#api's for employee
-@app.route('/api/employee', methods=['GET'])
-def api_employee_get():
-    employees = Employee.query.all()
-    employees_json = [{"id": employee.id, "name": employee.name}
-                  for employee in employees]
-    return jsonify(employees_json)
+#api's for customer
+@app.route('/api/customer', methods=['GET'])
+def api_customer_get():
+    customers = Customer.query.all()
+    customers_json = [{"id": customer.id, "name": customer.name}
+                  for customer in customers]
+    return jsonify(customers_json)
 
-@app.route('/api/employee/<id>', methods=['GET'])
-def api_employee_get_id(id):
-    employees = Employee.query.filter_by(id=id)
-    if not employees:
+@app.route('/api/customer/<id>', methods=['GET'])
+def api_customer_get_id(id):
+    customers = Customer.query.filter_by(id=id)
+    if not customers:
         abort(404)
-    employee = employees[0]
-    employee_json = {"id": employee.id, "name": employee.name}
-    return jsonify(employee_json)
+    customer = customers[0]
+    customer_json = {"id": customer.id, "name": customer.name}
+    return jsonify(customer_json)
 
-@app.route('/api/employee', methods=['POST'])
-def api_employee_insert():
-    new_employee = request.get_json()
-    employee = Employee(id=new_employee['id'], name=new_employee['name'])
-    db.session.add(employee)
+@app.route('/api/customer', methods=['POST'])
+def api_customer_insert():
+    new_customer = request.get_json()
+    customer = Customer(id=new_customer['id'], name=new_customer['name'])
+    db.session.add(customer)
     db.session.commit()
-    employee_json = {"id": employee.id, "name": employee.name}
-    return jsonify(employee_json)
+    customer_json = {"id": customer.id, "name": customer.name}
+    return jsonify(customer_json)
 
-@app.route('/api/employee/<id>', methods=['DELETE'])
-def api_employee_delete(id):
-    employees = Employee.query.filter_by(id=id)
-    if not employees:
+@app.route('/api/customer/<id>', methods=['DELETE'])
+def api_customer_delete(id):
+    customers = Customer.query.filter_by(id=id)
+    if not customers:
         abort(404)
-    employee = employees[0]
-    db.session.delete(employee)
+    customer = customers[0]
+    db.session.delete(customer)
     db.session.commit()
     return jsonify()
 
-@app.route('/api/employee/<id>', methods=['PUT'])
-def api_employee_update(id):
-    updated_employee = request.get_json()
-    employees_to_update = Employee.query.filter_by(id=id)
+@app.route('/api/customer/<id>', methods=['PUT'])
+def api_customer_update(id):
+    updated_customer = request.get_json()
+    customers_to_update = Customer.query.filter_by(id=id)
     data = json.loads(request.get_data())
-    employee_to_update = employees_to_update[0]
-    employee_to_update = db.session.query(Employee).filter_by(id = id).first()
-    employee_to_update.name = data['name']
+    customer_to_update = customers_to_update[0]
+    customer_to_update = db.session.query(Customer).filter_by(id = id).first()
+    customer_to_update.name = data['name']
     db.session.commit()
-    return jsonify(employee_to_update.to_dict())
+    return jsonify(customer_to_update.to_dict())
 
-#api's for company
-@app.route('/api/company', methods=['GET'])
-def api_company_get():
-    companys = Company.query.all()
-    companys_json = [{"id": company.id, "name": company.name}
-                  for company in companys]
-    return jsonify(companys_json)
+#api's for book
+@app.route('/api/book', methods=['GET'])
+def api_book_get():
+    books = Book.query.all()
+    books_json = [{"id": book.id, "name": book.name}
+                  for book in books]
+    return jsonify(books_json)
 
-@app.route('/api/company/<id>', methods=['GET'])
-def api_company_get_id(id):
-    companys = Company.query.filter_by(id=id)
-    if not companys:
+@app.route('/api/book/<id>', methods=['GET'])
+def api_book_get_id(id):
+    books = Book.query.filter_by(id=id)
+    if not books:
         abort(404)
-    company = companys[0]
-    company_json = {"id": company.id, "name": company.name}
-    return jsonify(company_json)
+    book = books[0]
+    book_json = {"id": book.id, "name": book.name}
+    return jsonify(book_json)
 
-@app.route('/api/company', methods=['POST'])
-def api_company_insert():
-    new_company = request.get_json()
-    company = Company(id=new_company['id'], name=new_company['name'])
-    db.session.add(company)
+@app.route('/api/book', methods=['POST'])
+def api_book_insert():
+    new_book = request.get_json()
+    book = Book(id=new_book['id'], name=new_book['name'])
+    db.session.add(book)
     db.session.commit()
-    company_json = {"id": company.id, "name": company.name}
-    return jsonify(company_json)
+    book_json = {"id": book.id, "name": book.name}
+    return jsonify(book_json)
 
-@app.route('/api/company/<id>', methods=['DELETE'])
-def api_company_delete(id):
-    companys = Company.query.filter_by(id=id)
-    if not companys:
+@app.route('/api/book/<id>', methods=['DELETE'])
+def api_book_delete(id):
+    books = Book.query.filter_by(id=id)
+    if not books:
         abort(404)
-    company = companys[0]
-    db.session.delete(company)
+    book = books[0]
+    db.session.delete(book)
     db.session.commit()
     return jsonify()
 
-@app.route('/api/company/<id>', methods=['PUT'])
-def api_company_update(id):
-    updated_company = request.get_json()
-    companys_to_update = Company.query.filter_by(id=id)
+@app.route('/api/book/<id>', methods=['PUT'])
+def api_book_update(id):
+    updated_book = request.get_json()
+    books_to_update = Book.query.filter_by(id=id)
     data = json.loads(request.get_data())
-    company_to_update = companys_to_update[0]
-    company_to_update = db.session.query(Company).filter_by(id = id).first()
-    company_to_update.name = data['name']
+    book_to_update = books_to_update[0]
+    book_to_update = db.session.query(Book).filter_by(id = id).first()
+    book_to_update.name = data['name']
     db.session.commit()
-    return jsonify(company_to_update.to_dict())
+    return jsonify(book_to_update.to_dict())
 
 #api's for town
 @app.route('/api/town', methods=['GET'])
